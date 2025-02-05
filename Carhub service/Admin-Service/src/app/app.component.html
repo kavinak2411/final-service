@@ -1,0 +1,104 @@
+<!-- Navbar for Users Only -->
+<nav class="navbar navbar-expand-lg" *ngIf="!isAdmin">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/main">
+      <i class="fas fa-car"></i> CarHub
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/main" routerLinkActive="active">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/services" routerLinkActive="active">
+            <i class="fas fa-wrench"></i> Services
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/packages" routerLinkActive="active">
+            <i class="fas fa-box-open"></i> Packages
+          </a>
+        </li>
+
+        <!-- Toggle Button -->
+        <li class="nav-item switch-container">
+          <div class="switch-wrapper">
+            <span class="switch-label">User</span>
+            <label class="switch">
+              <input type="checkbox" [checked]="isAdmin" (change)="toggleView()">
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Admin Dashboard Layout (Only for Admins) -->
+<div class="admin-layout" *ngIf="isAdmin">
+  <!-- Sidebar -->
+  <div class="admin-sidebar">
+    <div class="sidebar-header">
+      <i class="fas fa-car"></i>
+      <span>CarHub Admin</span>
+    </div>
+    <div class="sidebar-menu">
+      <a routerLink="/admin/view-services" routerLinkActive="active">
+        <i class="fas fa-list"></i>
+        <span>Manage Services</span>
+      </a>
+      <a routerLink="/admin/view-packages" routerLinkActive="active">
+        <i class="fas fa-box-open"></i>
+        <span>Manage Packages</span>
+      </a>
+      <a routerLink="/admin/bookings" routerLinkActive="active">
+        <i class="fas fa-calendar-check"></i>
+        <span>Bookings</span>
+      </a>
+      <div class="sidebar-divider"></div>
+      <a routerLink="/admin/add-service" routerLinkActive="active">
+        <i class="fas fa-plus-circle"></i>
+        <span>Add Service</span>
+      </a>
+      <a routerLink="/admin/add-package" routerLinkActive="active">
+        <i class="fas fa-box"></i>
+        <span>Create Package</span>
+      </a>
+    </div>
+    <div class="sidebar-footer">
+      <div class="admin-controls">
+        <div class="switch-wrapper">
+          <span class="switch-label">Admin</span>
+          <label class="switch">
+            <input type="checkbox" [checked]="isAdmin" (change)="toggleView()">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <button class="logout-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="admin-content">
+    <div class="admin-main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<!-- Router outlet for user views -->
+<div class="user-content" *ngIf="!isAdmin">
+  <router-outlet></router-outlet>
+</div>

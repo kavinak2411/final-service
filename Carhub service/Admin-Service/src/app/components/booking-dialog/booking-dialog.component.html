@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>Book {{ data.service.name }}</h2>
+<div class="service-details">
+  <p class="price">Price: ₹{{ data.service.price || data.service.totalPrice }}</p>
+</div>
+<mat-dialog-content>
+  <form [formGroup]="bookingForm" class="booking-form">
+    <mat-form-field appearance="outline">
+      <mat-label>Client Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter your name">
+      <mat-error *ngIf="bookingForm.get('name')?.hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Vehicle Number</mat-label>
+      <input matInput formControlName="vehicleNumber" placeholder="Enter vehicle number">
+      <mat-error *ngIf="bookingForm.get('vehicleNumber')?.hasError('required')">
+        Vehicle number is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput formControlName="phoneNumber" placeholder="Enter phone number">
+      <mat-error *ngIf="bookingForm.get('phoneNumber')?.hasError('required')">
+        Phone number is required
+      </mat-error>
+      <mat-error *ngIf="bookingForm.get('phoneNumber')?.hasError('pattern')">
+        Please enter a valid phone number
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Appointment Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="appointmentDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="bookingForm.get('appointmentDate')?.hasError('required')">
+        Appointment date is required
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="bookingForm.invalid">
+    Book Now
+  </button>
+</mat-dialog-actions> 
