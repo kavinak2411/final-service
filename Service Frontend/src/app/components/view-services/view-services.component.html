@@ -1,0 +1,64 @@
+<div class="page-container">
+  <div class="services-container">
+    <div class="header-section">
+      <h2 class="section-title">Available Services</h2>
+      <p class="section-subtitle">Manage your service offerings</p>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-container" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading services...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+      <button class="btn btn-primary retry-button" (click)="loadServices()">
+        Retry
+      </button>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="services-grid" *ngIf="!isLoading && !errorMessage && services.length > 0">
+      <div class="service-card" *ngFor="let service of services">
+        <div class="service-header">
+          <h3 class="service-title">{{service.name}}</h3>
+          <!-- Admin Actions -->
+          <div class="service-actions" *ngIf="isAdmin">
+            <button class="action-button edit-button" (click)="editService(service.id!)">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="action-button view-button" (click)="viewService(service.id!)">
+              <i class="fas fa-eye"></i> View
+            </button>
+            <button class="action-button delete-button" (click)="deleteService(service.id!)">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+        
+        <div class="service-content">
+          <p class="service-description">{{service.description}}</p>
+        </div>
+        
+        <div class="service-footer">
+          <div class="price-section">
+            <span class="price-label">Price</span>
+            <span class="service-price">₹{{service.price}}</span>
+          </div>
+          <!-- Show Book button only for users -->
+          <button class="book-button" *ngIf="!isAdmin" (click)="bookService(service)">
+            <i class="fas fa-calendar-check"></i> Book Service
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Services Message -->
+    <div class="no-services" *ngIf="!isLoading && !errorMessage && services.length === 0">
+      <i class="fas fa-wrench empty-icon"></i>
+      <p>No services available at the moment.</p>
+    </div>
+  </div>
+</div> 

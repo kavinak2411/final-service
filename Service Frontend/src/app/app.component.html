@@ -1,0 +1,109 @@
+<!-- Navbar for Users Only -->
+<nav class="navbar navbar-expand-lg" *ngIf="!isAdmin">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/main">
+      <img src="/assets/logo.png" alt="CarHub Logo" style="height: 14px; margin-right: 10px;">
+      CarHub
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/main" routerLinkActive="active">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/services" routerLinkActive="active">
+            <i class="fas fa-wrench"></i> Services
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/packages" routerLinkActive="active">
+            <i class="fas fa-box-open"></i> Packages
+          </a>
+        </li>
+        <!-- Dropdown for User/Admin Switch -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-circle"></i> User
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" (click)="toggleView()">Admin Login</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Admin Dashboard Layout (Only for Admins) -->
+<nav class="navbar navbar-expand-lg" *ngIf="isAdmin">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/admin">
+      <img src="/assets/logo.png" alt="CarHub Logo" style="height: 14px; margin-right: 10px;">
+      CarHub Admin
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="adminNavbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/add-service" routerLinkActive="active">
+            <i class="fas fa-plus-circle"></i> Add Service
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/add-package" routerLinkActive="active">
+            <i class="fas fa-box"></i> Create Package
+          </a>
+        </li>
+        <!-- Dropdown for Bookings, View Packages, View Services, and Logout -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-circle"></i> Admin
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="adminDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/admin/bookings" routerLinkActive="active">
+                <i class="fas fa-calendar-check"></i> Bookings
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/admin/view-services" routerLinkActive="active">
+                <i class="fas fa-list"></i> View Services
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/admin/view-packages" routerLinkActive="active">
+                <i class="fas fa-box-open"></i> View Packages
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" (click)="logout()">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content for Admin -->
+<div class="admin-content" *ngIf="isAdmin">
+  <div class="admin-main">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<!-- Router outlet for user views -->
+<div class="user-content" *ngIf="!isAdmin">
+  <router-outlet></router-outlet>
+</div>

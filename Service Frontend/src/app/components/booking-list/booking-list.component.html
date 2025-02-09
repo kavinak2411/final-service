@@ -1,0 +1,88 @@
+<div class="page-container">
+  <div class="bookings-container">
+    <div class="header-section">
+      <h2 class="section-title">Booking Management</h2>
+      <p class="section-subtitle">View and manage all service bookings</p>
+    </div>
+
+    <div class="table-container mat-elevation-z8">
+      <!-- Error Message -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+        <button mat-raised-button color="primary" (click)="loadBookings()">
+          Retry
+        </button>
+      </div>
+
+      <!-- Table -->
+      <table mat-table [dataSource]="bookings" class="bookings-table" *ngIf="!isLoading && !errorMessage">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let booking">{{booking.id}}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Client Name</th>
+          <td mat-cell *matCellDef="let booking">{{booking.name}}</td>
+        </ng-container>
+
+        <!-- Vehicle Number Column -->
+        <ng-container matColumnDef="vehicleNumber">
+          <th mat-header-cell *matHeaderCellDef>Vehicle Number</th>
+          <td mat-cell *matCellDef="let booking">{{booking.vehicleNumber}}</td>
+        </ng-container>
+
+        <!-- Phone Number Column -->
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+          <td mat-cell *matCellDef="let booking">{{booking.phoneNumber}}</td>
+        </ng-container>
+
+        <!-- Service Name Column -->
+        <ng-container matColumnDef="serviceName">
+          <th mat-header-cell *matHeaderCellDef>Service</th>
+          <td mat-cell *matCellDef="let booking">{{booking.serviceName}}</td>
+        </ng-container>
+
+        <!-- Appointment Date Column -->
+        <ng-container matColumnDef="appointmentDate">
+          <th mat-header-cell *matHeaderCellDef>Appointment Date</th>
+          <td mat-cell *matCellDef="let booking">{{formatDate(booking.appointmentDate)}}</td>
+        </ng-container>
+
+        <!-- Total Amount Column -->
+        <ng-container matColumnDef="totalAmount">
+          <th mat-header-cell *matHeaderCellDef>Amount</th>
+          <td mat-cell *matCellDef="let booking">₹{{booking.totalAmount}}</td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let booking">
+            <button mat-icon-button color="warn" (click)="deleteBooking(booking.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <!-- Loading Spinner -->
+      <div class="loading-container" *ngIf="isLoading">
+        <mat-spinner diameter="40"></mat-spinner>
+        <p>Loading bookings...</p>
+      </div>
+
+      <!-- No Bookings Message -->
+      <div class="no-bookings" *ngIf="!isLoading && !errorMessage && bookings.length === 0">
+        <mat-icon>event_busy</mat-icon>
+        <p>No bookings found</p>
+      </div>
+    </div>
+  </div>
+</div> 

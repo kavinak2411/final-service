@@ -1,0 +1,49 @@
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 300px;
+  padding: 16px 0;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.service-details {
+  padding: 0 24px;
+  color: #666;
+}
+
+.price {
+  font-size: 1.2rem;
+  color: #0072ff;
+  font-weight: 500;
+}
+
+:host {
+  display: block;
+}
+
+mat-dialog-content {
+  min-height: 200px;
+}
+
+mat-dialog-actions {
+  padding: 16px 24px;
+  margin-bottom: 0;
+}
+
+.mat-mdc-dialog-title {
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+button[mat-button] {
+  margin-right: 8px;
+}
+
+button[mat-raised-button] {
+  min-width: 100px;
+} 
